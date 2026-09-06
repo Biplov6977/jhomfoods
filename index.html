@@ -276,11 +276,7 @@ footer a{color:var(--gold)}
     <div class="eyebrow">CUTS</div>
     <h2>What leaves the room.</h2>
     <p class="lead">A look at the cartons. To buy, use Order at the top — nothing is added from here.</p>
-  </div>
-  <div class="photo-rail">
-    <div class="photo-track reverse" id="cut-track"></div>
-  </div>
-  <div class="wrap">
+    <div class="products" id="grid"></div>
     <p style="margin-top:28px"><button class="btn" onclick="openPanel('order')">Order these on WhatsApp</button></p>
   </div>
 </section>
@@ -342,20 +338,25 @@ const PRODUCTS = [
   {id:'GG04', name:'Goat Meat', cut:'5 kg boneless', pack:'5 kg', price:810, img:'p-goat.jpg'},
   {id:'CB05', name:'Chicken Boneless', cut:'10 kg carton', pack:'10 kg', price:265, img:'p-chicken-b.jpg'},
   {id:'CC06', name:'Chicken Curry Cut', cut:'10 kg carton', pack:'10 kg', price:210, img:'p-chicken-c.jpg'},
-  {id:'PR07', name:'Frozen Prawn 40/50', cut:'2 kg block', pack:'2 kg', price:620, img:'p-prawn.jpg'}
+  {id:'PR07', name:'Frozen Prawn 40/50', cut:'2 kg block', pack:'2 kg', price:620, img:'p-prawn.jpg'},
+  {id:'FF08', name:'French Fries', cut:'2.5 kg pack', pack:'2.5 kg', price:185, img:'p-fries.jpg'}
+];
+const LOOK = [
+  ...PRODUCTS,
+  {name:'Packed cuts', cut:'Ready cartons', img:'packed.jpg'},
+  {name:'Vacuum packs', cut:'On request', img:'pack1.jpg'},
+  {name:'Steaks & loins', cut:'On request', img:'room2.jpg'}
 ];
 const cart = {};
 const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
 const kg = p => parseFloat(p.pack);
 
 function renderGrid(){
-  const html = PRODUCTS.map(p => `
-    <div class="cut-card">
+  document.getElementById('grid').innerHTML = LOOK.map(p => `
+    <div class="pcard">
       <div class="ph"><img src="${p.img}" alt="${p.name}"></div>
       <div class="bd"><h3>${p.name}</h3><div class="cut">${p.cut}</div></div>
     </div>`).join('');
-  const track = document.getElementById('cut-track');
-  track.innerHTML = html + html;
 }
 function chg(id,d){
   const n = (cart[id]||0)+d;
